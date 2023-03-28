@@ -18,8 +18,8 @@
             android:ems="10"
             android:hint="Username......."
             android:inputType="textEmailAddress"
-            app:layout_constraintEnd_toEndOf="@+id/etPasswordLogin"
-            app:layout_constraintStart_toStartOf="@+id/etPasswordLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="TouchTargetSizeCheck" />
 
@@ -50,9 +50,11 @@
             android:id="@+id/tvSingupLinkLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="29dp"
             android:text="singup...."
-            tools:layout_editor_absoluteX="177dp"
-            tools:layout_editor_absoluteY="494dp"
+            app:layout_constraintStart_toStartOf="@+id/btnLoginLogin"
+            app:layout_constraintTop_toBottomOf="@+id/btnLoginLogin"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

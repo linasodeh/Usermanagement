@@ -87,7 +87,7 @@ public class LoginFragment extends Fragment {
         tvSignupLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                gotoSignupFragment();
             }
         });
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -115,9 +115,9 @@ public class LoginFragment extends Fragment {
             }
         });
     }
-    private void gotoSingupFragment() {
+    private void gotoSignupFragment() {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayoutMain,new LoginFragment());
+        ft.replace(R.id.frameLayoutMain,new SignupFragment());
         ft.commit();
     }
 }
