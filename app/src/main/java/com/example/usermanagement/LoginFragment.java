@@ -88,7 +88,7 @@ public class LoginFragment extends Fragment {
         tvForgetPasswor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gotoSignupFragment();
+                gotoForgetPasswordFragment();
             }
         });
         tvSignupLink.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +129,9 @@ public class LoginFragment extends Fragment {
     }
 
     private void gotoForgetPasswordFragment() {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayoutMain,new ForgetPasswordFragment());
+        ft.commit();
 
     }
 

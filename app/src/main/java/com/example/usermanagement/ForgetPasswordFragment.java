@@ -2,11 +2,18 @@ package com.example.usermanagement;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +22,9 @@ import android.view.ViewGroup;
  */
 public class ForgetPasswordFragment extends Fragment {
 
+    private FirebaseSarvices fbs;
+    private EditText etEmail;
+    private Button btnReset;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -60,5 +70,29 @@ public class ForgetPasswordFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_forget_password, container, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        fbs=FirebaseSarvices.getInstance();
+        etEmail=getView().findViewById(R.id.etEmailForgetPassword);
+        btnReset=getView().findViewById(R.id.btnResetForgetPassword);
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fbs.getAuth().sendPasswordResetEmail(etEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(getActivity(), "check your email", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "failed.check the email address you entered!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
     }
 }
