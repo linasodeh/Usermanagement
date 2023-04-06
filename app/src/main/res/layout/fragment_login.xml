@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginFragment">
@@ -10,50 +11,59 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/tvForgetPasswordLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="144dp"
+            android:layout_marginBottom="186dp"
+            android:text="forget password........"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <EditText
             android:id="@+id/etUsernameLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="183dp"
+            android:layout_marginBottom="84dp"
             android:ems="10"
             android:hint="Username......."
             android:inputType="textEmailAddress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/etPasswordLogin"
+            app:layout_constraintEnd_toEndOf="@+id/etPasswordLogin"
+            app:layout_constraintStart_toStartOf="@+id/etPasswordLogin"
             tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
             android:id="@+id/etPasswordLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="85dp"
+            android:layout_marginBottom="56dp"
             android:ems="10"
             android:hint='Password........'
             android:inputType="textPassword"
+            app:layout_constraintBottom_toTopOf="@+id/btnLoginLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etUsernameLogin"
             tools:ignore="TouchTargetSizeCheck" />
 
         <Button
             android:id="@+id/btnLoginLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="59dp"
+            android:layout_marginBottom="52dp"
             android:text="login"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPasswordLogin" />
+            app:layout_constraintBottom_toTopOf="@+id/tvForgetPasswordLogin"
+            app:layout_constraintStart_toStartOf="@+id/tvForgetPasswordLogin" />
 
         <TextView
             android:id="@+id/tvSingupLinkLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="29dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="10dp"
             android:text="singup...."
-            app:layout_constraintStart_toStartOf="@+id/btnLoginLogin"
+            app:layout_constraintEnd_toEndOf="@+id/btnLoginLogin"
             app:layout_constraintTop_toBottomOf="@+id/btnLoginLogin"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>

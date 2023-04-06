@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,11 +95,11 @@ public class SignupFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful())
                         {
-
+                            Toast.makeText(getActivity(), "good", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
-
+                            Log.e("Signup: ", task.getException().getMessage());
                         }
                     }
                 });

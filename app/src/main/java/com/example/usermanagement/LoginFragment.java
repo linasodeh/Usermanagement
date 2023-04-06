@@ -27,7 +27,7 @@ public class LoginFragment extends Fragment {
 
     private EditText etUsername, etPassword;
     private Button btnLogin;
-    private TextView tvSignupLink;
+    private TextView tvSignupLink,tvForgetPasswor;
     private FirebaseSarvices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -80,10 +80,17 @@ public class LoginFragment extends Fragment {
     public void onStart() {
         super.onStart();
         fbs=FirebaseSarvices.getInstance();
-        etUsername=getView().findViewById(R.id.etUsernameLogin);
+        etUsername = getView().findViewById(R.id.etUsernameLogin);
         etPassword=getView().findViewById(R.id.etPasswordLogin);
         btnLogin=getView().findViewById(R.id.btnLoginLogin);
         tvSignupLink = getView().findViewById(R.id.tvSingupLinkLogin);
+        tvForgetPasswor = getView().findViewById(R.id.tvForgetPasswordLogin);
+        tvForgetPasswor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoSignupFragment();
+            }
+        });
         tvSignupLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,11 +111,11 @@ public class LoginFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful())
                         {
-
+                            Toast.makeText(getActivity(), "Username password correct", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
-
+                            Toast.makeText(getActivity(), "Username password incorrect", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -120,4 +127,9 @@ public class LoginFragment extends Fragment {
         ft.replace(R.id.frameLayoutMain,new SignupFragment());
         ft.commit();
     }
+
+    private void gotoForgetPasswordFragment() {
+
+    }
+
 }
