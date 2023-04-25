@@ -111,7 +111,7 @@ public class LoginFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful())
                         {
-                            Toast.makeText(getActivity(), "Username password correct", Toast.LENGTH_SHORT).show();
+                            gotoMovementFragment();
                         }
                         else
                         {
@@ -133,6 +133,11 @@ public class LoginFragment extends Fragment {
         ft.replace(R.id.frameLayoutMain,new ForgetPasswordFragment());
         ft.commit();
 
+    }
+    private void gotoMovementFragment() {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayoutMain,new AddMovementFragment());
+        ft.commit();
     }
 
 }
