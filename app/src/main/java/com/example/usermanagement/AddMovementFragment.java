@@ -82,6 +82,7 @@ public class AddMovementFragment extends Fragment {
         fbs=FirebaseSarvices.getInstance();
         etType=getView().findViewById(R.id.etTypeAddFragment);
         etTime=getView().findViewById(R.id.etTimeAddFragment);
+        btnAdd=getView().findViewById(R.id.btnAddAddFragment);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

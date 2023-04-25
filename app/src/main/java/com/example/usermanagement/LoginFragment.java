@@ -111,6 +111,7 @@ public class LoginFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful())
                         {
+                            Toast.makeText(getActivity(), "Username password correct", Toast.LENGTH_SHORT).show();
                             gotoMovementFragment();
                         }
                         else
