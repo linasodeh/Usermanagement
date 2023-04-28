@@ -1,12 +1,27 @@
 package com.example.usermanagement;
 
+import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +29,10 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class PlayListFragment extends Fragment {
+    RecyclerView recyclerView;
+    ArrayList<Movement> movementArrayList;
+    MyAdapter myAdapter;
+    FirebaseFirestore db;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,5 +79,40 @@ public class PlayListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_play_list, container, false);
+
+
+        recyclerView=getView().findViewById(R.id.rvMovementsPlayList);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        db=FirebaseFirestore.getInstance();
+        movementArrayList = new ArrayList<Movement>();
+        myAdapter = new MyAdapter(MainActivity.this,movementArrayList);
+
+
+        EventChangeListener();
+    }
+
+    private void EventChangeListener() {
+
+        db.collection("movements").orderBy("type", Query.Direction.ASCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error!=null){
+                            Log.e("Firestore error",error.getMessage());
+                            return;
+                        }
+
+                        for (DocumentChange dc ; value.getDocumentChanges()){
+                            if(dc.getType()==DocumentChange.Type.ADDED){
+                                movementArrayList.add(dc.getDocument().toObject(Movement.class));
+                            }
+                            myAdapter.notifyDataSetChanged();
+                        }
+
+
+                    }
+                });
     }
 }
