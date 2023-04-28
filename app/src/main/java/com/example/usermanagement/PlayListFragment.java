@@ -111,7 +111,7 @@ public class PlayListFragment extends Fragment {
                             return;
                         }
 
-                        for (DocumentChange dc ; value.getDocumentChanges())
+                        for (DocumentChange dc : value.getDocumentChanges())
                         {
                             if(dc.getType()==DocumentChange.Type.ADDED){
                                 movementArrayList.add(dc.getDocument().toObject(Movement.class));
