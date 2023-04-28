@@ -33,6 +33,7 @@ public class PlayListFragment extends Fragment {
     ArrayList<Movement> movementArrayList;
     MyAdapter myAdapter;
     FirebaseFirestore db;
+    ProgressDialog progressDialog;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,6 +81,10 @@ public class PlayListFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_play_list, container, false);
 
+        progressDialog = new ProgressDialog(this.getActivity());
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Fetching Data....");
+        progressDialog.show();
 
         recyclerView=getView().findViewById(R.id.rvMovementsPlayList);
         recyclerView.setHasFixedSize(true);
@@ -87,8 +92,8 @@ public class PlayListFragment extends Fragment {
 
         db=FirebaseFirestore.getInstance();
         movementArrayList = new ArrayList<Movement>();
-        myAdapter = new MyAdapter(MainActivity.this,movementArrayList);
-
+        myAdapter = new MyAdapter(this.getActivity(),movementArrayList);
+        recyclerView.setAdapter(myAdapter);
 
         EventChangeListener();
     }
@@ -100,15 +105,20 @@ public class PlayListFragment extends Fragment {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         if (error!=null){
+                            if(progressDialog.isShowing())
+                                progressDialog.dismiss();
                             Log.e("Firestore error",error.getMessage());
                             return;
                         }
 
-                        for (DocumentChange dc ; value.getDocumentChanges()){
+                        for (DocumentChange dc ; value.getDocumentChanges())
+                        {
                             if(dc.getType()==DocumentChange.Type.ADDED){
                                 movementArrayList.add(dc.getDocument().toObject(Movement.class));
                             }
                             myAdapter.notifyDataSetChanged();
+                            if(progressDialog.isShowing())
+                                progressDialog.dismiss();
                         }
 
 
