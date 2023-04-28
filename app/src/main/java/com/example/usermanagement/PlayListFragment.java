@@ -83,7 +83,7 @@ public class PlayListFragment extends Fragment {
 
         recyclerView=getView().findViewById(R.id.rvMovementsPlayList);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         db=FirebaseFirestore.getInstance();
         movementArrayList = new ArrayList<Movement>();
