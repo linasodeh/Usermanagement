@@ -33,7 +33,7 @@ public class PlayListFragment extends Fragment {
     ArrayList<Movement> movementArrayList;
     MyAdapter myAdapter;
     FirebaseFirestore db;
-    ProgressDialog progressDialog;
+    //ProgressDialog progressDialog;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,23 +80,26 @@ public class PlayListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_play_list, container, false);
-
-        //progressDialog = new ProgressDialog(getActivity());
-        //progressDialog.setCancelable(false);
-        //progressDialog.setMessage("Fetching Data....");
-        //progressDialog.show();
-
-        recyclerView=getView().findViewById(R.id.rvMovementsPlayList);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-
-        db=FirebaseFirestore.getInstance();
-        movementArrayList = new ArrayList<Movement>();
-        myAdapter = new MyAdapter(this.getActivity(),movementArrayList);
-        recyclerView.setAdapter(myAdapter);
-
-        EventChangeListener();
     }
+
+        @Override
+        public void onStart() {
+            super.onStart();
+            //progressDialog = new ProgressDialog(getActivity());
+            //progressDialog.setCancelable(false);
+            //progressDialog.setMessage("Fetching Data....");
+            //progressDialog.show();
+            recyclerView = getView().findViewById(R.id.rvMovementsPlayList);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+
+            db = FirebaseFirestore.getInstance();
+            movementArrayList = new ArrayList<Movement>();
+            myAdapter = new MyAdapter(this.getActivity(), movementArrayList);
+            recyclerView.setAdapter(myAdapter);
+
+            EventChangeListener();
+        }
 
     private void EventChangeListener() {
 
