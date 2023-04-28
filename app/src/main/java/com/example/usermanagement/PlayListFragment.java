@@ -81,10 +81,10 @@ public class PlayListFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_play_list, container, false);
 
-        progressDialog = new ProgressDialog(this.getActivity());
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Fetching Data....");
-        progressDialog.show();
+        //progressDialog = new ProgressDialog(getActivity());
+        //progressDialog.setCancelable(false);
+        //progressDialog.setMessage("Fetching Data....");
+        //progressDialog.show();
 
         recyclerView=getView().findViewById(R.id.rvMovementsPlayList);
         recyclerView.setHasFixedSize(true);
@@ -105,8 +105,8 @@ public class PlayListFragment extends Fragment {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         if (error!=null){
-                            if(progressDialog.isShowing())
-                                progressDialog.dismiss();
+                            //if(progressDialog.isShowing())
+                                //progressDialog.dismiss();
                             Log.e("Firestore error",error.getMessage());
                             return;
                         }
@@ -117,8 +117,8 @@ public class PlayListFragment extends Fragment {
                                 movementArrayList.add(dc.getDocument().toObject(Movement.class));
                             }
                             myAdapter.notifyDataSetChanged();
-                            if(progressDialog.isShowing())
-                                progressDialog.dismiss();
+                            //if(progressDialog.isShowing())
+                                //progressDialog.dismiss();
                         }
 
 
