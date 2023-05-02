@@ -21,6 +21,12 @@
             android:layout_height="wrap_content"
             android:text="Time"/>
 
+        <ImageView
+            android:id="@+id/ivMovementPlayItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_media_play" />
+
 
     </LinearLayout>
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -110,6 +111,11 @@ public class AddMovementFragment extends Fragment {
         fbs.getFire().collection("movements").add(movement).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
+                // TODO: goto playlist fragment
+
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.frameLayoutMain,new PlayListFragment());
+                    ft.commit();
 
             }
         }).addOnFailureListener(new OnFailureListener() {

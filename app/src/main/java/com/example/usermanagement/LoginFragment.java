@@ -80,6 +80,8 @@ public class LoginFragment extends Fragment {
     public void onStart() {
         super.onStart();
         fbs=FirebaseSarvices.getInstance();
+        if (fbs.getAuth().getCurrentUser() != null)
+            gotoMovementFragment();
         etUsername = getView().findViewById(R.id.etUsernameLogin);
         etPassword=getView().findViewById(R.id.etPasswordLogin);
         btnLogin=getView().findViewById(R.id.btnLoginLogin);

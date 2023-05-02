@@ -1,9 +1,11 @@
 package com.example.usermanagement;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,7 +35,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         Movement movement=movementArrayList.get(position);
         holder.type.setText(movement.getType());
-        holder.time.setText(movement.getTime());
+        holder.time.setText(String.valueOf(movement.getTime()));
+        holder.imageViewPlayMovement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
     @Override
@@ -42,11 +51,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView type, time;
+        ImageView imageViewPlayMovement;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             type= itemView.findViewById(R.id.tvMovementTypeItem);
             time=itemView.findViewById(R.id.tvMovementTimeItem);
+            imageViewPlayMovement=itemView.findViewById(R.id.ivMovementPlayItem);
         }
     }
 }

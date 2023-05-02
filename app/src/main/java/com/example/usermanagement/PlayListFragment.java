@@ -119,13 +119,24 @@ public class PlayListFragment extends Fragment {
                             if(dc.getType()==DocumentChange.Type.ADDED){
                                 movementArrayList.add(dc.getDocument().toObject(Movement.class));
                             }
+                            flipData(movementArrayList);
                             myAdapter.notifyDataSetChanged();
-                            //if(progressDialog.isShowing())
-                                //progressDialog.dismiss();
                         }
+
+                        recyclerView.setAdapter(myAdapter);
 
 
                     }
                 });
+    }
+
+    public void flipData(ArrayList<Movement> movements)
+    {
+        int size = movementArrayList.size();
+        for (int i = 0; i < size / 2; i++) {
+            Movement temp = movementArrayList.get(i);
+            movementArrayList.set(i, movementArrayList.get(size - i - 1));
+            movementArrayList.set(size - i - 1, temp);
+        }
     }
 }
