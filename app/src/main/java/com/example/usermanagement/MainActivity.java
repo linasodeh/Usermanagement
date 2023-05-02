@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+// TODO: 1. sound to text
+//       2. adding droiduino code
 public class MainActivity extends AppCompatActivity {
 
     @Override
