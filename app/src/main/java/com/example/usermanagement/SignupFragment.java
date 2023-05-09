@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 
@@ -26,7 +25,7 @@ import com.google.firebase.auth.AuthResult;
 public class SignupFragment extends Fragment {
     private EditText etUsername, etPassword;
     private Button btnSignup;
-    private FirebaseSarvices fbs;
+    private FirebaseServices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,7 +76,7 @@ public class SignupFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        fbs=FirebaseSarvices.getInstance();
+        fbs= FirebaseServices.getInstance();
         etUsername=getView().findViewById(R.id.etUsernameSignup);
         etPassword=getView().findViewById(R.id.etPasswordSignup);
         btnSignup=getView().findViewById(R.id.btnSingup);

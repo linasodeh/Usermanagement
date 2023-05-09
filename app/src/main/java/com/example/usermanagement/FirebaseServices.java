@@ -4,13 +4,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
-public class FirebaseSarvices {
-    private static FirebaseSarvices instance;
-    private FirebaseAuth auth;
-    private FirebaseFirestore fire;
-    private FirebaseStorage storage;
+public class FirebaseServices {
+    private static FirebaseServices instance;
+    private final FirebaseAuth auth;
+    private final FirebaseFirestore fire;
+    private final FirebaseStorage storage;
 
-    public FirebaseSarvices() {
+    public FirebaseServices() {
         auth = FirebaseAuth.getInstance();
         fire = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
@@ -29,10 +29,9 @@ public class FirebaseSarvices {
     }
 
 
-
-    public static FirebaseSarvices getInstance(){
+    public static FirebaseServices getInstance(){
         if (instance == null){
-            instance= new FirebaseSarvices();
+            instance= new FirebaseServices();
         }
         return instance;
     }

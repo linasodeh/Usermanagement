@@ -25,7 +25,7 @@ import com.google.firebase.firestore.DocumentReference;
 public class AddMovementFragment extends Fragment {
     private EditText etType,etTime;
     private Button btnAdd;
-    private FirebaseSarvices fbs;
+    private FirebaseServices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,7 +81,7 @@ public class AddMovementFragment extends Fragment {
     }
 
     private void init() {
-        fbs=FirebaseSarvices.getInstance();
+        fbs= FirebaseServices.getInstance();
         etType=getView().findViewById(R.id.etTypeAddFragment);
         etTime=getView().findViewById(R.id.etTimeAddFragment);
         btnAdd=getView().findViewById(R.id.btnAddAddFragment);

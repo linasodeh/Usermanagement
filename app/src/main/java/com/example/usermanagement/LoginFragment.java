@@ -27,8 +27,8 @@ public class LoginFragment extends Fragment {
 
     private EditText etUsername, etPassword;
     private Button btnLogin;
-    private TextView tvSignupLink,tvForgetPasswor;
-    private FirebaseSarvices fbs;
+    private TextView tvSignupLink,tvForgetPassword;
+    private FirebaseServices fbs;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -79,15 +79,15 @@ public class LoginFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        fbs=FirebaseSarvices.getInstance();
-        if (fbs.getAuth().getCurrentUser() != null)
-            gotoMovementFragment();
+        fbs= FirebaseServices.getInstance();
+        /*if (fbs.getAuth().getCurrentUser() != null)
+            gotoMovementFragment(); */
         etUsername = getView().findViewById(R.id.etUsernameLogin);
         etPassword=getView().findViewById(R.id.etPasswordLogin);
         btnLogin=getView().findViewById(R.id.btnLoginLogin);
         tvSignupLink = getView().findViewById(R.id.tvSingupLinkLogin);
-        tvForgetPasswor = getView().findViewById(R.id.tvForgetPasswordLogin);
-        tvForgetPasswor.setOnClickListener(new View.OnClickListener() {
+        tvForgetPassword = getView().findViewById(R.id.tvForgetPasswordLogin);
+        tvForgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 gotoForgetPasswordFragment();
@@ -114,7 +114,7 @@ public class LoginFragment extends Fragment {
                         if (task.isSuccessful())
                         {
                             Toast.makeText(getActivity(), "Username password correct", Toast.LENGTH_SHORT).show();
-                            gotoMovementFragment();
+                            gotoSoundToTextFragment();
                         }
                         else
                         {
@@ -125,6 +125,13 @@ public class LoginFragment extends Fragment {
             }
         });
     }
+
+    private void gotoSoundToTextFragment() {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayoutMain,new SoundToTextFragment());
+        ft.commit();
+    }
+
     private void gotoSignupFragment() {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayoutMain,new SignupFragment());

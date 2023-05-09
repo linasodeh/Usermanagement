@@ -22,7 +22,7 @@ import com.google.android.gms.tasks.Task;
  */
 public class ForgetPasswordFragment extends Fragment {
 
-    private FirebaseSarvices fbs;
+    private FirebaseServices fbs;
     private EditText etEmail;
     private Button btnReset;
     // TODO: Rename parameter arguments, choose names that match
@@ -75,7 +75,7 @@ public class ForgetPasswordFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        fbs=FirebaseSarvices.getInstance();
+        fbs= FirebaseServices.getInstance();
         etEmail=getView().findViewById(R.id.etEmailForgetPassword);
         btnReset=getView().findViewById(R.id.btnResetForgetPassword);
         btnReset.setOnClickListener(new View.OnClickListener() {
