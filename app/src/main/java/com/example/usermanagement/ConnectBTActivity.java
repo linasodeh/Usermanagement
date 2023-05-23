@@ -1,28 +1,22 @@
 package com.example.usermanagement;
 
 import static android.content.ContentValues.TAG;
-import static android.content.Intent.getIntent;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -34,86 +28,31 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ConnectBTFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ConnectBTFragment extends Fragment {
+public class ConnectBTActivity extends AppCompatActivity {
     private String deviceName = null;
     private String deviceAddress;
     public static Handler handler;
     public static BluetoothSocket mmSocket;
-    public static ConnectedThread connectedThread;
-    public static CreateConnectThread createConnectThread;
+    public static ConnectBTFragment.ConnectedThread connectedThread;
+    public static ConnectBTFragment.CreateConnectThread createConnectThread;
 
     private final static int CONNECTING_STATUS = 1; // used in bluetooth handler to identify message status
     private final static int MESSAGE_READ = 2; // used in bluetooth handler to identify message update
 
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ConnectBTFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ConnectBTFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ConnectBTFragment newInstance(String param1, String param2) {
-        ConnectBTFragment fragment = new ConnectBTFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_connect_b_t, container, false);
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // UI Initialization
-        final Button buttonConnect = getView().findViewById(R.id.buttonConnect1);
-        final Toolbar toolbar = getView().findViewById(R.id.toolbar1);
-        final ProgressBar progressBar = getView().findViewById(R.id.progressBar1);
+        setContentView(R.layout.activity_connect_btactivity);
+        final Button buttonConnect = findViewById(R.id.buttonConnect);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
+        final ProgressBar progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
-        final TextView textViewInfo = getView().findViewById(R.id.textViewInfo1);
-        final Button buttonToggle = getView().findViewById(R.id.buttonToggle1);
+        final TextView textViewInfo = findViewById(R.id.textViewInfo);
+        final Button buttonToggle = findViewById(R.id.buttonToggle);
         buttonToggle.setEnabled(false);
-        final ImageView imageView = getView().findViewById(R.id.imageView1);
-        final SeekBar sbServoTest = getView().findViewById(R.id.sbServoTestMain1);
-        final TextView tvServoChange = getView().findViewById(R.id.tvServoChangeMain1);
+        final ImageView imageView = findViewById(R.id.imageView);
+        final SeekBar sbServoTest = findViewById(R.id.sbServoTestMain);
+        final TextView tvServoChange = findViewById(R.id.tvServoChangeMain);
 
         sbServoTest.setMax(180);
 
@@ -139,10 +78,10 @@ public class ConnectBTFragment extends Fragment {
         });
 
         // If a bluetooth device has been selected from SelectDeviceActivity
-        deviceName = getActivity().getIntent().getStringExtra("deviceName");
+        deviceName = this.getIntent().getStringExtra("deviceName");
         if (deviceName != null) {
             // Get the device address to make BT Connection
-            deviceAddress = getActivity().getIntent().getStringExtra("deviceAddress");
+            deviceAddress = this.getIntent().getStringExtra("deviceAddress");
             // Show progree and connection status
             toolbar.setSubtitle("Connecting to " + deviceName + "...");
             progressBar.setVisibility(View.VISIBLE);
@@ -154,7 +93,7 @@ public class ConnectBTFragment extends Fragment {
             selected device (see the thread code below)
              */
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-            createConnectThread = new CreateConnectThread(bluetoothAdapter, deviceAddress);
+            createConnectThread = new ConnectBTFragment.CreateConnectThread(bluetoothAdapter, deviceAddress);
             createConnectThread.start();
         }
 
@@ -210,12 +149,13 @@ public class ConnectBTFragment extends Fragment {
             public void onClick(View view) {
                 // Move to adapter list
                 // TODO: goto select fragment
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayoutMain, new SelectBTFragment());
-                ft.commit();
                 /*
-                Intent intent = new Intent(getActivity(), SelectDeviceActivity.class);
-                startActivity(intent); */
+                FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayoutMain, new SelectBTFragment());
+                ft.commit(); */
+
+                Intent intent = new Intent(ConnectBTActivity.this, SelectBTActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -229,13 +169,13 @@ public class ConnectBTFragment extends Fragment {
                     case "turn on":
                         buttonToggle.setText("Turn Off");
                         // Command to turn on LED on Arduino. Must match with the command in Arduino code
-                        cmdText = "a";
+                        cmdText = "go";
                         //cmdText = "<turn on>";
                         break;
                     case "turn off":
                         buttonToggle.setText("Turn On");
                         // Command to turn off LED on Arduino. Must match with the command in Arduino code
-                        cmdText = "b";
+                        cmdText = "back";
                         //cmdText = "<turn off>";
                         break;
                 }
@@ -310,7 +250,7 @@ public class ConnectBTFragment extends Fragment {
 
             // The connection attempt succeeded. Perform work associated with
             // the connection in a separate thread.
-            connectedThread = new ConnectedThread(mmSocket);
+            connectedThread = new ConnectBTFragment.ConnectedThread(mmSocket);
             connectedThread.run();
         }
 

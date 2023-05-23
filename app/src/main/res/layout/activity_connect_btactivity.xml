@@ -9,7 +9,7 @@
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar1"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="499dp"
@@ -25,7 +25,7 @@
         app:titleTextColor="@android:color/background_light" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imageView"
         android:layout_width="200dp"
         android:layout_height="300dp"
         android:layout_marginTop="24dp"
@@ -40,7 +40,7 @@
         tools:ignore="VectorDrawableCompat" />
 
     <Button
-        android:id="@+id/buttonConnect1"
+        android:id="@+id/buttonConnect"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
     <Button
-        android:id="@+id/buttonToggle1"
+        android:id="@+id/buttonToggle"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
-        android:id="@+id/progressBar1"
+        android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewInfo1"
+        android:id="@+id/textViewInfo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -89,7 +89,7 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonToggle" />
 
     <SeekBar
-        android:id="@+id/sbServoTestMain1"
+        android:id="@+id/sbServoTestMain"
         android:layout_width="236dp"
         android:layout_height="0dp"
         android:layout_marginBottom="149dp"
@@ -99,7 +99,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
-        android:id="@+id/tvServoChangeMain1"
+        android:id="@+id/tvServoChangeMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="46dp"

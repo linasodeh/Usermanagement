@@ -1,5 +1,6 @@
 package com.example.usermanagement;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -114,7 +115,8 @@ public class LoginFragment extends Fragment {
                         if (task.isSuccessful())
                         {
                             Toast.makeText(getActivity(), "Username password correct", Toast.LENGTH_SHORT).show();
-                            gotoSoundToTextFragment();
+                            gotoBTActivity();
+                            //gotoSoundToTextFragment();
                         }
                         else
                         {
@@ -149,5 +151,11 @@ public class LoginFragment extends Fragment {
         ft.replace(R.id.frameLayoutMain,new AddMovementFragment());
         ft.commit();
     }
+
+    private void gotoBTActivity() {
+        Intent intent = new Intent(getActivity(), ConnectBTActivity.class);
+        startActivity(intent);
+    }
+
 
 }
