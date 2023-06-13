@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 // TODO: 1. sound to text
@@ -18,8 +19,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void gotoLoginFragment() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayoutMain,new LoginFragment());
-        ft.commit();
+        Intent intent = new Intent(this , ConnectBtActivity.class);
+        startActivity(intent);
     }
 }
