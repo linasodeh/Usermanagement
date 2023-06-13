@@ -1,5 +1,6 @@
 package com.example.usermanagement;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -86,6 +87,7 @@ public class ForgetPasswordFragment extends Fragment {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
                             Toast.makeText(getActivity(), "check your email", Toast.LENGTH_SHORT).show();
+                            gotoBTActivity();
                         }
                         else {
                             Toast.makeText(getActivity(), "failed.check the email address you entered!", Toast.LENGTH_SHORT).show();
@@ -94,5 +96,9 @@ public class ForgetPasswordFragment extends Fragment {
                 });
             }
         });
+    }
+    private void gotoBTActivity() {
+        Intent intent = new Intent(getActivity(), ConnectBTActivity.class);
+        startActivity(intent);
     }
 }

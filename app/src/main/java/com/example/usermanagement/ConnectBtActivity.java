@@ -4,13 +4,13 @@ import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.core.app.ActivityCompat;
 
-import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -28,13 +28,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
-public class ConnectBTActivity extends AppCompatActivity {
+public class ConnectBtActivity extends AppCompatActivity {
     private String deviceName = null;
     private String deviceAddress;
     public static Handler handler;
     public static BluetoothSocket mmSocket;
-    public static ConnectBTFragment.ConnectedThread connectedThread;
-    public static ConnectBTFragment.CreateConnectThread createConnectThread;
+    public static ConnectedThread connectedThread;
+    public static CreateConnectThread createConnectThread;
 
     private final static int CONNECTING_STATUS = 1; // used in bluetooth handler to identify message status
     private final static int MESSAGE_READ = 2; // used in bluetooth handler to identify message update
@@ -42,7 +42,9 @@ public class ConnectBTActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_connect_btactivity);
+        setContentView(R.layout.activity_connect_bt);
+
+        // UI Initialization
         final Button buttonConnect = findViewById(R.id.buttonConnect);
         final Toolbar toolbar = findViewById(R.id.toolbar);
         final ProgressBar progressBar = findViewById(R.id.progressBar);
@@ -78,10 +80,10 @@ public class ConnectBTActivity extends AppCompatActivity {
         });
 
         // If a bluetooth device has been selected from SelectDeviceActivity
-        deviceName = this.getIntent().getStringExtra("deviceName");
+        deviceName = getIntent().getStringExtra("deviceName");
         if (deviceName != null) {
             // Get the device address to make BT Connection
-            deviceAddress = this.getIntent().getStringExtra("deviceAddress");
+            deviceAddress = getIntent().getStringExtra("deviceAddress");
             // Show progree and connection status
             toolbar.setSubtitle("Connecting to " + deviceName + "...");
             progressBar.setVisibility(View.VISIBLE);
@@ -93,7 +95,7 @@ public class ConnectBTActivity extends AppCompatActivity {
             selected device (see the thread code below)
              */
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-            createConnectThread = new ConnectBTFragment.CreateConnectThread(bluetoothAdapter, deviceAddress);
+            createConnectThread = new CreateConnectThread(bluetoothAdapter, deviceAddress);
             createConnectThread.start();
         }
 
@@ -148,13 +150,7 @@ public class ConnectBTActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Move to adapter list
-                // TODO: goto select fragment
-                /*
-                FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayoutMain, new SelectBTFragment());
-                ft.commit(); */
-
-                Intent intent = new Intent(ConnectBTActivity.this, SelectBTActivity.class);
+                Intent intent = new Intent(ConnectBtActivity.this, SelectBTActivity.class);
                 startActivity(intent);
             }
         });
@@ -169,13 +165,13 @@ public class ConnectBTActivity extends AppCompatActivity {
                     case "turn on":
                         buttonToggle.setText("Turn Off");
                         // Command to turn on LED on Arduino. Must match with the command in Arduino code
-                        cmdText = "go";
+                        cmdText = "a";
                         //cmdText = "<turn on>";
                         break;
                     case "turn off":
                         buttonToggle.setText("Turn On");
                         // Command to turn off LED on Arduino. Must match with the command in Arduino code
-                        cmdText = "back";
+                        cmdText = "b";
                         //cmdText = "<turn off>";
                         break;
                 }
@@ -188,15 +184,13 @@ public class ConnectBTActivity extends AppCompatActivity {
     /* ============================ Thread to Create Bluetooth Connection =================================== */
     public static class CreateConnectThread extends Thread {
 
-        @SuppressLint("MissingPermission")
         public CreateConnectThread(BluetoothAdapter bluetoothAdapter, String address) {
             /*
             Use a temporary object that is later assigned to mmSocket
             because mmSocket is final.
              */
             BluetoothDevice bluetoothDevice = bluetoothAdapter.getRemoteDevice(address);
-            BluetoothSocket tmp = null;
-            /*
+            BluetoothSocket tmp = null;/*
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
@@ -206,8 +200,8 @@ public class ConnectBTActivity extends AppCompatActivity {
                 // to handle the case where the user grants the permission. See the documentation
                 // for ActivityCompat#requestPermissions for more details.
                 return TODO;
-            }*/
-            @SuppressLint("MissingPermission") UUID uuid = bluetoothDevice.getUuids()[0].getUuid();
+            } */
+            UUID uuid = bluetoothDevice.getUuids()[0].getUuid();
 
             try {
                 /*
@@ -224,11 +218,9 @@ public class ConnectBTActivity extends AppCompatActivity {
             mmSocket = tmp;
         }
 
-        @SuppressLint("MissingPermission")
         public void run() {
             // Cancel discovery because it otherwise slows down the connection.
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
             bluetoothAdapter.cancelDiscovery();
             try {
                 // Connect to the remote device through the socket. This call blocks
@@ -250,7 +242,7 @@ public class ConnectBTActivity extends AppCompatActivity {
 
             // The connection attempt succeeded. Perform work associated with
             // the connection in a separate thread.
-            connectedThread = new ConnectBTFragment.ConnectedThread(mmSocket);
+            connectedThread = new ConnectedThread(mmSocket);
             connectedThread.run();
         }
 
@@ -332,7 +324,6 @@ public class ConnectBTActivity extends AppCompatActivity {
     }
 
     /* ============================ Terminate Connection at BackPress ====================== */
-    /*
     @Override
     public void onBackPressed() {
         // Terminate Bluetooth Connection and close app
@@ -343,7 +334,5 @@ public class ConnectBTActivity extends AppCompatActivity {
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);
-    } */
-
-
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.usermanagement;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -95,6 +96,7 @@ public class SignupFragment extends Fragment {
                         if (task.isSuccessful())
                         {
                             Toast.makeText(getActivity(), "good", Toast.LENGTH_SHORT).show();
+                            gotoBTActivity();
                         }
                         else
                         {
@@ -104,5 +106,9 @@ public class SignupFragment extends Fragment {
                 });
             }
         });
+    }
+    private void gotoBTActivity() {
+        Intent intent = new Intent(getActivity(), ConnectBTActivity.class);
+        startActivity(intent);
     }
 }
