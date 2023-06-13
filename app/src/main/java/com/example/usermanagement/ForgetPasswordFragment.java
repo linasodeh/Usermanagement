@@ -98,7 +98,7 @@ public class ForgetPasswordFragment extends Fragment {
         });
     }
     private void gotoBTActivity() {
-        Intent intent = new Intent(getActivity(), ConnectBTActivity.class);
+        Intent intent = new Intent(getActivity(), ConnectBtActivity.class);
         startActivity(intent);
     }
 }
