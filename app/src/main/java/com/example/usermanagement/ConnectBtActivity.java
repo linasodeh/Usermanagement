@@ -2,6 +2,7 @@ package com.example.usermanagement;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,10 +24,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.UUID;
 
 public class ConnectBtActivity extends AppCompatActivity {
@@ -35,6 +41,9 @@ public class ConnectBtActivity extends AppCompatActivity {
     public static BluetoothSocket mmSocket;
     public static ConnectedThread connectedThread;
     public static CreateConnectThread createConnectThread;
+    private Button record;
+    private TextView tv_Speech_to_text;
+    private static final int REQUEST_CODE_SPEECH_INPUT = 1;
 
     private final static int CONNECTING_STATUS = 1; // used in bluetooth handler to identify message status
     private final static int MESSAGE_READ = 2; // used in bluetooth handler to identify message update
@@ -176,7 +185,8 @@ public class ConnectBtActivity extends AppCompatActivity {
                         break;
                 }
                 // Send command to Arduino board
-                connectedThread.write(cmdText);
+                //connectedThread.write(cmdText);
+                connectedThread.write("go");
             }
         });
     }
@@ -334,5 +344,49 @@ public class ConnectBtActivity extends AppCompatActivity {
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        //iv_mic = getView().findViewById(R.id.ivMicSoundToText);
+        record=findViewById(R.id.RecordBtConnectActivity);
+        tv_Speech_to_text = findViewById(R.id.tvTapToSpeachConnectActivity);
+        record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent
+                        = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
+                        Locale.getDefault());
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak to text");
+
+                try {
+                    startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
+                }
+                catch (Exception e) {
+                    Toast
+                            .makeText(ConnectBtActivity.this, " " + e.getMessage(),
+                                    Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+        });
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode,
+                                 @Nullable Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_SPEECH_INPUT) {
+            if (resultCode == RESULT_OK && data != null) {
+                ArrayList<String> result = data.getStringArrayListExtra(
+                        RecognizerIntent.EXTRA_RESULTS);
+                tv_Speech_to_text.setText(
+                        Objects.requireNonNull(result).get(0));
+            }
+        }
     }
 }

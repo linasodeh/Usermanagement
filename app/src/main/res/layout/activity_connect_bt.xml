@@ -109,5 +109,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sbServoTestMain" />
 
+    <Button
+        android:id="@+id/RecordBtConnectActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="record"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="666dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tvTapToSpeachConnectActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tap on record to speach"
+        tools:layout_editor_absoluteX="129dp"
+        tools:layout_editor_absoluteY="714dp"
+        tools:ignore="MissingConstraints" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

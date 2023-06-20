@@ -19,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void gotoLoginFragment() {
-        Intent intent = new Intent(this , ConnectBtActivity.class);
-        startActivity(intent);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayoutMain,new LoginFragment());
+        ft.commit();
     }
 }
