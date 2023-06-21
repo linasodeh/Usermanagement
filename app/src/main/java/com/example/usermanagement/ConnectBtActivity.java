@@ -56,17 +56,18 @@ public class ConnectBtActivity extends AppCompatActivity {
         // UI Initialization
         final Button buttonConnect = findViewById(R.id.buttonConnect);
         final Toolbar toolbar = findViewById(R.id.toolbar);
-        final ProgressBar progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.GONE);
-        final TextView textViewInfo = findViewById(R.id.textViewInfo);
-        final Button buttonToggle = findViewById(R.id.buttonToggle);
-        buttonToggle.setEnabled(false);
-        final ImageView imageView = findViewById(R.id.imageView);
-        final SeekBar sbServoTest = findViewById(R.id.sbServoTestMain);
-        final TextView tvServoChange = findViewById(R.id.tvServoChangeMain);
+        //final ProgressBar progressBar = findViewById(R.id.progressBar);
+        //progressBar.setVisibility(View.GONE);
+        //final TextView textViewInfo = findViewById(R.id.textViewInfo);
+        //final Button buttonToggle = findViewById(R.id.buttonToggle);
+        //buttonToggle.setEnabled(false);
+        //final ImageView imageView = findViewById(R.id.imageView);
+        //final SeekBar sbServoTest = findViewById(R.id.sbServoTestMain);
+        //final TextView tvServoChange = findViewById(R.id.tvServoChangeMain);
 
-        sbServoTest.setMax(180);
+        //sbServoTest.setMax(180);
 
+        /*
         sbServoTest.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int progressChangedValue = 0;
 
@@ -86,7 +87,7 @@ public class ConnectBtActivity extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
-        });
+        }); */
 
         // If a bluetooth device has been selected from SelectDeviceActivity
         deviceName = getIntent().getStringExtra("deviceName");
@@ -95,7 +96,7 @@ public class ConnectBtActivity extends AppCompatActivity {
             deviceAddress = getIntent().getStringExtra("deviceAddress");
             // Show progree and connection status
             toolbar.setSubtitle("Connecting to " + deviceName + "...");
-            progressBar.setVisibility(View.VISIBLE);
+            //progressBar.setVisibility(View.VISIBLE);
             buttonConnect.setEnabled(false);
 
             /*
@@ -119,13 +120,13 @@ public class ConnectBtActivity extends AppCompatActivity {
                         switch (msg.arg1) {
                             case 1:
                                 toolbar.setSubtitle("Connected to " + deviceName);
-                                progressBar.setVisibility(View.GONE);
+                                //progressBar.setVisibility(View.GONE);
                                 buttonConnect.setEnabled(true);
-                                buttonToggle.setEnabled(true);
+                                //buttonToggle.setEnabled(true);
                                 break;
                             case -1:
                                 toolbar.setSubtitle("Device fails to connect");
-                                progressBar.setVisibility(View.GONE);
+                                //progressBar.setVisibility(View.GONE);
                                 buttonConnect.setEnabled(true);
                                 break;
                         }
@@ -136,12 +137,12 @@ public class ConnectBtActivity extends AppCompatActivity {
                         String arduinoMsg = msg.obj.toString(); // Read message from Arduino
                         switch (arduinoMsg.toLowerCase()) {
                             case "led is turned on":
-                                imageView.setBackgroundColor(getResources().getColor(R.color.colorOn));
-                                textViewInfo.setText("Arduino Message : " + arduinoMsg);
+                                //imageView.setBackgroundColor(getResources().getColor(R.color.colorOn));
+                                ///textViewInfo.setText("Arduino Message : " + arduinoMsg);
                                 break;
                             case "led is turned off":
-                                imageView.setBackgroundColor(getResources().getColor(R.color.colorOff));
-                                textViewInfo.setText("Arduino Message : " + arduinoMsg);
+                                //imageView.setBackgroundColor(getResources().getColor(R.color.colorOff));
+                                //textViewInfo.setText("Arduino Message : " + arduinoMsg);
                                 break;
                         }
 
@@ -164,7 +165,9 @@ public class ConnectBtActivity extends AppCompatActivity {
             }
         });
 
-        // Button to ON/OFF LED on Arduino Board
+        // Button to ON/OFF LED on Ardu
+        // ino Board
+        /*
         buttonToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,7 +191,7 @@ public class ConnectBtActivity extends AppCompatActivity {
                 //connectedThread.write(cmdText);
                 connectedThread.write("go");
             }
-        });
+        }); */
     }
 
     /* ============================ Thread to Create Bluetooth Connection =================================== */
