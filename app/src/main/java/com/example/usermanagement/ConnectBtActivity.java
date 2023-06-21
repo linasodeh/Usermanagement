@@ -386,6 +386,7 @@ public class ConnectBtActivity extends AppCompatActivity {
                         RecognizerIntent.EXTRA_RESULTS);
                 tv_Speech_to_text.setText(
                         Objects.requireNonNull(result).get(0));
+                connectedThread.write(Objects.requireNonNull(result).get(0));
             }
         }
     }

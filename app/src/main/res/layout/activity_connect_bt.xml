@@ -113,18 +113,21 @@
         android:id="@+id/RecordBtConnectActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="23dp"
         android:text="record"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="666dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvTapToSpeachConnectActivity"
+        app:layout_constraintEnd_toEndOf="@+id/tvTapToSpeachConnectActivity"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tvTapToSpeachConnectActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="58dp"
         android:text="tap on record to speach"
-        tools:layout_editor_absoluteX="129dp"
-        tools:layout_editor_absoluteY="714dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvServoChangeMain"
         tools:ignore="MissingConstraints" />
 
 
